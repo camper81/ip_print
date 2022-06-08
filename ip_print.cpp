@@ -19,7 +19,7 @@ template <typename T>
 using is_string = std::is_same<T, std::string>;
 
 template <typename T>
-typename std::enable_if_t<is_string<T>::value, void>
+typename std::enable_if<is_string<T>::value, void>::type
 print_ip(const T &value) {
      std::cout << value << std::endl;
 }
@@ -34,7 +34,7 @@ using is_list = std::is_same<T, std::list<typename T::value_type,
         typename T::allocator_type>>;
 
 template<typename T>
-typename std::enable_if_t<is_vector<T>::value || is_list<T>::value, void>
+typename std::enable_if<is_vector<T>::value || is_list<T>::value, void>::type
 print_ip(const T &container) {
     auto value = container.begin();
     while(value != std::prev(container.end())) {
@@ -84,7 +84,7 @@ struct is_same_tuple_elems {
 };
 
 template<typename... Args>
-typename std::enable_if_t<is_same_tuple_elems<Args...>::value, void>
+typename std::enable_if<is_same_tuple_elems<Args...>::value, void>::type
 print_ip(const std::tuple<Args...>& tuple, std::ostream &os = std::cout) {
     const auto len = std::tuple_size<std::tuple<Args...>>::value;
     print_ip_elem<len - 1, Args...>{}(tuple, os);
