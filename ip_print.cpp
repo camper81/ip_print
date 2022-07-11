@@ -3,9 +3,10 @@
 #include <list>
 #include <tuple>
 
-/// <summary>
-/// Outputs strings containing numbers in formatted IP address form style
-
+/*! \mainpage IP Print
+ * \section intro_sec Introduction
+ * Outputs strings containing numbers in formatted IP address form style
+ */
 template<typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
 print_ip(T value, std::ostream &os = std::cout) {
