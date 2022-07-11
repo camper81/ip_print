@@ -3,25 +3,33 @@
 #include <list>
 #include <tuple>
 
+/// <summary>
+/// Outputs strings containing numbers in formatted IP address form style
+
 template<typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
-print_ip(T value) {
+print_ip(T value, std::ostream &os = std::cout) {
     unsigned char* cp = reinterpret_cast<unsigned char*>(&value);
     size_t count_bytes = sizeof(value);
 
     while(count_bytes-- > 1){
-        std::cout << +cp[count_bytes] << '.';
+        os << +cp[count_bytes] << '.';
     }
-    std::cout << +cp[count_bytes] << std::endl;
+    os << +cp[count_bytes] << std::endl;
 }
 
 template <typename T>
 using is_string = std::is_same<T, std::string>;
 
+/// @brief metafunction for output string
+/// @details
+/// Checks if template parameter is string type then outputs it
+/// @tparam T validating template type
+///
 template <typename T>
 typename std::enable_if<is_string<T>::value, void>::type
-print_ip(const T &value) {
-     std::cout << value << std::endl;
+print_ip(const T &value, std::ostream &os = std::cout) {
+     os << value << std::endl;
 }
 
 
@@ -35,13 +43,13 @@ using is_list = std::is_same<T, std::list<typename T::value_type,
 
 template<typename T>
 typename std::enable_if<is_vector<T>::value || is_list<T>::value, void>::type
-print_ip(const T &container) {
+print_ip(const T &container, std::ostream &os = std::cout) {
     auto value = container.begin();
     while(value != std::prev(container.end())) {
-        std::cout << *value << '.';
+        os << *value << '.';
         value++;
     }
-    std::cout << *value << std::endl;
+    os << *value << std::endl;
 }
 
 template<typename T>
