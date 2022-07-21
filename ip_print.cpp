@@ -6,7 +6,6 @@
 /// @summary
 /// Outputs values containing numbers in IP address form style
 /// @section
-///
 /// @brief Function reverse output of long numbers
 /// @tparam T checks if T is integral type
 ///
