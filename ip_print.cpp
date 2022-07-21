@@ -28,9 +28,9 @@
  *      должна быть выдана ошибка при компиляции кода.
  */
 
-@brief Function reverse output of long numbers
- @tparam T checks if T is integral type
 
+///@brief Function reverse output of long numbers
+///@tparam T checks if T is integral type
 template<typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
 print_ip(T value, std::ostream &os = std::cout) {
