@@ -3,9 +3,10 @@
 #include <list>
 #include <tuple>
 
-/// <summary>
-/// Outputs strings containing numbers in formatted IP address form style
-
+/// @summary
+/// Outputs values containing numbers in IP address form style
+/// @section
+///
 /// @brief Function reverse output of long numbers
 /// @tparam T checks if T is integral type
 ///
