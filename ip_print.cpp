@@ -35,18 +35,15 @@ print_ip(const T &value, std::ostream &os = std::cout) {
      os << value << std::endl;
 }
 
-/// @brief metafunction checks if template argument is vector collection
+
 template <typename T>
 using is_vector = std::is_same<T, std::vector<typename T::value_type,
         typename T::allocator_type>>;
 
-/// @brief metafunction checks if template argument is list collection
 template <typename T>
 using is_list = std::is_same<T, std::list<typename T::value_type,
         typename T::allocator_type>>;
 
-/// @brief metafunction for container output
-/// @tparam T checks if template argument is vector or list
 template<typename T>
 typename std::enable_if<is_vector<T>::value || is_list<T>::value, void>::type
 print_ip(const T &container, std::ostream &os = std::cout) {
@@ -65,12 +62,11 @@ auto to_unsigned(const T& t) {
 
 template<size_t ind, typename... Args>
 struct is_same_elems {
-    using type = typename std::tuple_element_t<ind, std::tuple<Args...> >;
+    using type = typename std::tuple_element<ind, std::tuple<Args...> >::type;
     static constexpr bool value{std::is_same<type, typename is_same_elems<ind - 1, Args...>::type>::value
                                 && is_same_elems<ind - 1, Args...>::value};
 };
 
-///@brief prints lasts elements of tuple
 template<int ind, typename... Args>
 struct print_ip_elem {
     void operator()(const std::tuple<Args...>& tuple, std::ostream &os = std::cout) {
@@ -81,11 +77,10 @@ struct print_ip_elem {
 
 template<typename... Args>
 struct is_same_elems<0, Args...> {
-    using type = typename std::tuple_element_t<0, std::tuple<Args...> >;
+    using type = typename std::tuple_element<0, std::tuple<Args...> >::type;
     static constexpr bool value{true};
 };
 
-///@brief prints first element of tuple
 template<typename... Args>
 struct print_ip_elem<0, Args...> {
     void operator()(const std::tuple<Args...>& tuple, std::ostream &os = std::cout) {
@@ -93,14 +88,12 @@ struct print_ip_elem<0, Args...> {
     }
 };
 
-///@brief prints tuples in ip format
 template<typename... Args>
 struct is_same_tuple_elems {
     static constexpr size_t len{std::tuple_size<std::tuple<Args...>>::value};
     static constexpr bool value{is_same_elems<len - 1, Args...>::value};
 };
 
-///@brief prints tuples in ip format
 template<typename... Args>
 typename std::enable_if<is_same_tuple_elems<Args...>::value, void>::type
 print_ip(const std::tuple<Args...>& tuple, std::ostream &os = std::cout) {
