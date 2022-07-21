@@ -3,7 +3,7 @@
 #include <list>
 #include <tuple>
 
-/*! @summary
+/*! @mainpage
  *  Outputs values containing numbers in IP address form style
  *
  *  <b>Задание:</b>
@@ -27,7 +27,6 @@
  *      символом точка). Элементы выводятся как есть. В случае, если типы кортежа не одинаковы,
  *      должна быть выдана ошибка при компиляции кода.
  */
-
 
 ///@brief Function reverse output of long numbers
 ///@tparam T checks if T is integral type
